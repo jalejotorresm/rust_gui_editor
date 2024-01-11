@@ -1,3 +1,42 @@
-fn main() {
-    println!("Hello, world!");
+use iced::{Element, Sandbox, widget::text, Settings};
+
+fn main() -> iced::Result {
+    //A partir del struct que se creo, se ejecuta un metodo run el cual hace que aparezca la ventana
+    Editor::run(Settings::default())
+}
+
+//El proceso de creacion inicia con la invocacion de un struct que contendra los estados de la aplicacion
+struct Editor;
+
+//Ya que esta aplicacion no maneja estados ni interacciones del usuario, se puede dejar el Message como un enum vacio
+#[derive(Debug)]
+enum Message {}
+
+impl Sandbox for Editor {
+    //Los Messages los eventos o las interacciones del usuario que la aplicacion puede manejar o reaccionar
+    //Son las acciones que pueden cambiar el estado de la aplicacion en un momento u otro
+    type Message = Message;
+
+    //Inicializa el estado de la aplicacion una vez se ejecute
+    fn new() -> Self {
+        Self
+    }
+
+    //Titulo que aparecera en la ventana
+    fn title(&self) -> String {
+        String::from("Editor de prueba con Rust y Iced")
+    }
+    
+    //Este metodo se encarga de manejar las acciones que se establecieron en Message
+    //Aqui se cambia o actualiza el estado de una aplicacion
+    fn update(&mut self, message: Message) {
+        match message {}
+    }
+
+    //El metodo produce los widgets o Elementos que componen el UI que mostraremos al usuario
+    //La interaccion del usuario con estos elementos o Widgets producen los Messages que se manejan a traves del update
+    //Completando el modelo de arquitectura ELM
+    fn view(&self) -> Element<'_, Message> {
+        text("Hola, iced").into()
+    }
 }
