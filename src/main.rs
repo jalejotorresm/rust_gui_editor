@@ -37,6 +37,8 @@ impl Sandbox for Editor {
     //La interaccion del usuario con estos elementos o Widgets producen los Messages que se manejan a traves del update
     //Completando el modelo de arquitectura ELM
     fn view(&self) -> Element<'_, Message> {
+        //Al widget se le llama el metodo into() para que se vuelva un widget generico
+        //Asi se cumple el tipo de retorno Element, el cual es generico, con el cual iced podria trabajar
         text("Hola, iced").into()
     }
 }
