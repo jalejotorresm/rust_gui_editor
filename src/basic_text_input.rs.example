@@ -5,11 +5,13 @@ fn main() -> iced::Result {
 }
 
 struct Editor {
+    //Se establece el contenido al que text_editor va a escuhar
     content: text_editor::Content,
 }
 
 #[derive(Debug, Clone)]
 enum Message {
+    //Creamos la variente Edit que se encargara de los cambios en el espacio que creamos
     Edit(text_editor::Action),
 }
 
@@ -17,6 +19,7 @@ impl Sandbox for Editor {
     type Message = Message;
 
     fn new() -> Self {
+        //Aqui se va inicializar los estados que definamos en el struct
         Self {
             content: text_editor::Content::new(),
         }
@@ -28,6 +31,7 @@ impl Sandbox for Editor {
     
     fn update(&mut self, message: Message) {
         match message {
+            //Aqui ya le estamos dando forma a la accion, en este caso, actualizar el estado con lo que vamos a introducir.
             Message::Edit(action) => {
                 self.content.edit(action);
             }
@@ -35,8 +39,12 @@ impl Sandbox for Editor {
     }
 
     fn view(&self) -> Element<'_, Message> {
+        //El widget text_editor permite tener espacio de ingreso y edicion de texto, 
+        //Este widget equiere una referencia a algun contenido, el cual se establece como estado en el struct
+        //El widget tambien genera metodos handler que manejan acciones especificas, como on_edit
         let input = text_editor(&self.content).on_edit(Message::Edit);
 
+        //EL metodo container nos ayuda a introducir nuestro widget en un elemento y darle forma con el padding
         container(input).padding(10).into()
     }
 }
